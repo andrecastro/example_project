@@ -1,0 +1,6 @@
+.project
+.classpath
+target/**/*
+target/*.war
+.settings/*
+.settings/**
