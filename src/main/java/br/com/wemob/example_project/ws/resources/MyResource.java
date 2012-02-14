@@ -1,6 +1,7 @@
 
 package br.com.wemob.example_project.ws.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
 import br.com.wemob.example_project.ws.domain.model.User;
+import br.com.wemob.example_project.ws.domain.model.UserRole;
 import br.com.wemob.example_project.ws.domain.repository.UserRepository;
 
 /** Example resource class hosted at the URI path "/myresource"
@@ -32,10 +34,24 @@ public class MyResource {
 		this.userRepository = userRepository;
 	}
 
-	@POST 
+	@GET 
 	@Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String save(User user) {
+    public String save() {
+		UserRole role =  new UserRole();
+		role.setName("role1");
+		role.setSomething("something");
+		
+		User user = new User();
+		
+		user.setName("teste");
+		user.setPassword("123456");
+		user.setSuperUser(true);
+		user.setRoles(new ArrayList<UserRole>());
+		user.getRoles().add(role);
+		user.getRoles().add(role);
+		user.getRoles().add(role);
+		
 		userRepository.save(user);
 		return "OK";
     }
