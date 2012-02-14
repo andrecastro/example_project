@@ -1,5 +1,8 @@
 package br.com.wemob.example_project.ws.domain.repository;
 
+import java.util.List;
+
+import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,16 @@ public class UserRepositoryTest extends AbstractSpringDataJUnitTest{
 		
 		Assert.assertNotNull(user.getId());
 	}
-	
+
+	@Test
+	public void should_retrieve_by_password(){
+		User user = createUser("André", "123456", true);
+		userRepository.save(user);
+		
+		List<User> users = userRepository.findByP("123456");
+		
+		Assert.assertNotNull(users);
+		Assert.assertThat(users, Matchers.hasItem(user));
+	}	
 	
 }
